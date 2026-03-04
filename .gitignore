@@ -208,3 +208,5 @@ __marimo__/
 
 pdfs/
 .DS_Store
+test/
+uploads/

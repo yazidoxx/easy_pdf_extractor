@@ -1,7 +1,7 @@
 ETHICS = ['Ethics Statement','Statement of Ethics Approval','Ethics approval and consent to participate',
           'Consent for publication','Ethical Approval','Consent of publication','Compliance with ethics','COMPLIANCE WITH ETHICS',]
 
-FUNDING = ['Funding','Funding:','Funding statement','Study Funding']
+FUNDING = ['Funding','Funding:','Funding statement','Study Funding','Funding Information','STATEMENT OF FINANCIAL SUPPORT']
 
 INTRODUCTION = ['Introduction']
 
@@ -13,7 +13,7 @@ REFERENCES_TERMS = ['Citations', 'References', 'Bibliography', 'Works Cited','Re
 
 AUTH_CONT = ['CrediT authorship contribution statement','Authors contributions.','CrediT Author Statement',
              'Authors\' contributions','Authors contributions','Collaborators','Additional Contributions',
-             'Authorscontributions','Additional Contributions:','Collaborators:','Authors contribution']
+             'Authorscontributions','Additional Contributions:','Collaborators:','Authors contribution','Author Contribution']
 
 ABBREVIATIONS = ['Abbreviations','Abbreviations:']
 
