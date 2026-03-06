@@ -388,19 +388,21 @@ class PDFTextExtractor:
             # Join all text and save to file.
             final_text = "".join(extracted_text)
             final_text = clean_string(final_text)
-            # Apply similar re.sub rule for each main section term:
+            # Apply a re.sub rule for each main section term (including multi-word terms):
             for section, terms in {
                 "Methods": METHODS_TERMS,
                 "Discussion": DISCUSSION_TERMS,
                 "Results": RESULTS_TERMS,
-                "Data availability": DATA_AVAILABILITY
+                "Data availability": DATA_AVAILABILITY,
             }.items():
                 for term in terms:
-                    # Only apply to terms that are a single word (for sane splitting after, and to avoid over-matching)
-                    # This mimics the pattern: section term at line start, spaces, then a cap word, merges => split by inserting newline
+                    # Normalise and escape the term (handles things like trailing ":" etc.)
                     safe_term = re.escape(term.strip(":").strip())
-                    pattern = rf'(?m)^({safe_term})([ ]+)([A-Z][a-zA-Z]*)'
-                    # \1 = section name, \3 = next word, drop the spaces between them
+                    # Insert a newline between the full (possibly multi-word) term and the next capitalised word
+                    # Example: "MATERIALS AND METHODS Animal Protocols"
+                    #   => "MATERIALS AND METHODS\nAnimal Protocols"
+                    # (?mi) => multiline + case-insensitive, allow optional leading whitespace
+                    pattern = rf'(?mi)^\s*({safe_term})(\s+)([A-Z][a-zA-Z]*)'
                     final_text = re.sub(pattern, r'\1\n\3', final_text)
             with output_txt.open("w", encoding="utf-8") as f:
                 f.write(final_text)
