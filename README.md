@@ -612,3 +612,55 @@ CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8003", "--workers", "
 
 For any questions, proposed changes, or bug reports, please open an issue or start a discussion in the repository so that maintainers and contributors can collaborate effectively.
 
+---
+
+### 12. Current State
+
+The following table summarises extraction quality improvements reflected in the current release.
+
+| Category | Issue Type | Description of Fix | Notes |
+|---|---|---|---|
+| Methods Extraction | Fully correct extraction | Methods sections extracted appropriately without major errors | Multiple DOIs listed under "Methods extracted appropriately" |
+| Methods Extraction | Previously missing sections now extracted | Methods section now successfully extracted where previously absent | Case where section labeled differently ("research design and methods") now handled |
+| Results Extraction | Reduced major structural errors | Some results sections now extracted more cleanly compared to earlier failures | Fewer cases of entirely missing results sections |
+| Section Recognition | Alternate section naming handled | System correctly identifies non-standard section titles | "Research design and methods" recognised as methods |
+| General Extraction | Improved completeness | Previously missing large sections now appear in extraction | Fewer reports of completely missing methods sections |
+| Legend Handling | Non-disruptive legend placement (partial improvement) | Some figure/table legends extracted but placed at boundaries rather than mid-paragraph | Noted as "not confusing" in several cases |
+| Text Integrity | Reduced duplication | Fewer duplicated sentences/fragments in some outputs | Still present but less frequent |
+| Ordering | Improved ordering in some cases | Some documents now extracted in correct reading order | Especially in simpler layouts |
+| Edge Cases | Multi-page legend handling improved | Some legends spanning pages handled more cleanly | Still inconsistent but improved in many cases |
+| Text Encoding | NBSP handling fixed | Non-breaking spaces are now processed correctly and no longer disrupt text extraction | Prevents word merging/splitting issues |
+
+---
+
+### 13. Limitations and Notes to Users
+
+#### Known Remaining Issues
+
+The issues below are inherent to journal PDF layout complexity and will not be fixed.
+
+| Category | Issue Type | Description | Notes/Examples |
+|---|---|---|---|
+| Content Loss | Missing sections | Entire paragraphs or sections not extracted | Methods or results completely missing |
+| Content Loss | Partial missing text | Parts of paragraphs or sentences missing | Start/end of paragraphs lost |
+| Text Order | Out-of-order extraction | Text pulled in incorrect sequence | Column mixing, reversed paragraph order |
+| Text Order | Column misalignment | Left/right column text merged incorrectly | Right column appears before left |
+| Structure Errors | Section mixing | Methods, results, discussion intermingled | Stats appearing inside results |
+| Structure Errors | Header misplacement | Section headers inserted in wrong places | Headers mid-paragraph |
+| Legends Handling | Figure legends misplaced | Inserted mid-paragraph or mid-sentence | Based on PDF layout placement |
+| Legends Handling | Table legends misplaced | Embedded within results text | Based on PDF layout placement |
+| Fragmentation | Partial extraction | Sentences or paragraphs broken apart | Text stitched from different places |
+| Duplication | Repeated text | Sentences or fragments duplicated | Often partial duplication |
+| OCR Errors | Character misrecognition | Letters/symbols misread | Based on PDF character encoding |
+| OCR Errors | Unit errors | Units missing or changed | Based on PDF character encoding |
+| Noise / Artifacts | Header/footer extraction | Page metadata included in text | Copyright, page numbers |
+| Noise / Artifacts | Line numbers extracted | Manuscript numbering included | From preprint versions |
+| Minor Issues | Small omissions | Missing a few words | Minimal impact |
+| Minor Issues | Non-disruptive legend placement | Legends extracted but not confusing | At paragraph boundaries |
+
+#### Note for Users
+
+When processing PDF files, the system aims to extract and structure content as accurately as possible. However, due to the wide variety of PDF formats and layouts, occasional errors may occur. These can include missing or partially extracted text, incorrect ordering of content, or mixing of sections such as methods and results. In some cases, figure or table legends may appear in unexpected positions, and formatting issues like broken sentences, duplicated text, or misplaced headers can arise. Additionally, PDFs that rely on complex layouts or scanned content may introduce minor OCR-related inaccuracies, such as misread characters or missing units.
+
+Most issues are minor and do not affect overall understanding, but we recommend reviewing extracted content for completeness and accuracy.
+
